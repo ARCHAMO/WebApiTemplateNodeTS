@@ -4,8 +4,6 @@ import cors from "express";
 import dbInit from "./db/mongo";
 
 // Definimos las rutas del WebApi
-import plateRecognizerRoute from './router/platerocognizer.router';
-import vehicleRoute from './router/vehicle.router';
 import userRoute from './router/user.router';
 import customerRoute from './router/customer.router';
 
@@ -15,8 +13,6 @@ app.use(express.json());
 
 const port = process.env.PORT || 3001;
 
-app.use(plateRecognizerRoute);
-app.use(vehicleRoute);
 app.use(userRoute);
 app.use(customerRoute);
 
