@@ -1,4 +1,4 @@
-import { createVehicleService } from '../services/vehicle.service'
+import { vehicleCreateService, vehicleFindByAllService, vehicleFindByIdService } from '../services/vehicle.service'
 import { Response, Request } from 'express'
 
 /**
@@ -6,10 +6,10 @@ import { Response, Request } from 'express'
  * @param req 
  * @param res 
  */
-const createVehicleController = async (req: Request, res: Response) => {
+const vehicleCreateController = async (req: Request, res: Response) => {
     const { body } = req;
-    const vehicle = await createVehicleService(body);
-    res.send({ vehicle })
+    const response = await vehicleCreateService(body);
+    res.send({ data: response })
 }
 
 /**
@@ -17,9 +17,22 @@ const createVehicleController = async (req: Request, res: Response) => {
  * @param req 
  * @param res 
  */
-const vehicleFindByIdController = async (req: Request, res: Response) => {
-    const { body } = req;
-    res.send({ body })
+ const vehicleFindByIdController = async (req: Request, res: Response) => {
+    const { params } = req;
+    const id = params.id;
+    const response = await vehicleFindByIdService(id);
+    res.send({ data: response })
 }
 
-export { createVehicleController, vehicleFindByIdController }
+/**
+ * 
+ * @param req 
+ * @param res 
+ */
+const vehicleFindByAllController = async (req: Request, res: Response) => {
+    const { body } = req;
+    const response = await vehicleFindByAllService(body);
+    res.send({ data: response })
+}
+
+export { vehicleCreateController, vehicleFindByIdController, vehicleFindByAllController }

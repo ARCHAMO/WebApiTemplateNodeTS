@@ -1,8 +1,8 @@
 export interface IPlateRecognizer {
     processing_time: Number,
-    results: "Mixed",
+    results: any[],
     filename: String,
     version: Number,
-    camera_id: "Mixed",
+    camera_id: any,
     timestamp: Date
 }

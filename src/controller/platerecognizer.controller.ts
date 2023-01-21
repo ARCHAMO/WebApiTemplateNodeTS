@@ -1,15 +1,15 @@
-import { createPlateService } from '../services/platerecognizer.service'
 import { Response, Request } from 'express'
+import { plateCreateService, plateFindByAllService, plateFindByIdService } from '../services/platerecognizer.service'
 
 /**
  * 
  * @param req 
  * @param res 
  */
-const createPlateController = async (req: Request, res: Response) => {
+const plateCreateController = async (req: Request, res: Response) => {
     const { body } = req;
-    const plateRecognizer = await createPlateService(body);
-    res.send({ plateRecognizer })
+    const response = await plateCreateService(JSON.parse(body.dataStr));
+    res.send({ data: response })
 }
 
 /**
@@ -18,8 +18,21 @@ const createPlateController = async (req: Request, res: Response) => {
  * @param res 
  */
 const plateFindByIdController = async (req: Request, res: Response) => {
-    const { body } = req;
-    res.send({ body })
+    const { params } = req;
+    const id = params.id;
+    const response = await plateFindByIdService(id);
+    res.send({ data: response })
 }
 
-export { createPlateController, plateFindByIdController }
+/**
+ * 
+ * @param req 
+ * @param res 
+ */
+const plateFindByAllController = async (req: Request, res: Response) => {
+    const { body } = req;
+    const response = await plateFindByAllService(body);
+    res.send({ data: response })
+}
+
+export { plateCreateController, plateFindByIdController, plateFindByAllController }

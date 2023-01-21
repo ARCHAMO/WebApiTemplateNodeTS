@@ -7,12 +7,36 @@ import VehicleModel from '../model/vehicle.schema';
  * @param plate 
  * @returns 
  */
-const createPlateService = async (plate: IPlateRecognizer) => {
+const plateCreateService = async (plate: IPlateRecognizer) => {
     const response = await PlateRecognizerModel.create(plate);
-    sendVehicles(response.results);
+    await sendVehicles(response.results);
     return response;
 }
 
+/**
+ * 
+ * @param params 
+ * @returns 
+ */
+const plateFindByAllService = async (params: any) => {
+    const response = await PlateRecognizerModel.find(params);
+    return response;
+}
+
+/**
+ * 
+ * @param id 
+ * @returns 
+ */
+const plateFindByIdService = async (id: string) => {
+    const response = await PlateRecognizerModel.findById(id);
+    return response;
+}
+
+/**
+ * 
+ * @param results Guarda los resultados de las placas detectadas en la lextura de la imagen.
+ */
 async function sendVehicles(results) {
     for (let index = 0; index < results.length; index++) {
         const element = results[index];
@@ -25,4 +49,4 @@ async function sendVehicles(results) {
     }
 }
 
-export { createPlateService }
+export { plateCreateService, plateFindByAllService, plateFindByIdService }
